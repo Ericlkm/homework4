@@ -115,7 +115,7 @@ begin.addEventListener("click",startQuiz)
 
 let currentQuestionIndex = 0;
 let score = 0;
-let countDown = 75;
+let countDown = 3;
 
 function startQuiz(){
     begin.style.display="none"
@@ -127,27 +127,11 @@ function startQuiz(){
     
 }
 
-function startTime(){
-    let timer = setInterval(function(){
-        countDown--;
-        time.textContent = " " + countDown;
-        if(countDown === 0){
-            clearInterval(timer)
-            resetState()
-            showScore()
-            
-        }
-
-
-    },1000)
-}
-
 function showQuestions(){
     resetState();
     let currentQuestion = myQuestions[currentQuestionIndex];
     let questionNum = currentQuestionIndex + 1;
     title.textContent = questionNum + ". " + currentQuestion.title;
-
 
     currentQuestion.answers.forEach(answers =>{
         let button = document.createElement("button");
@@ -166,8 +150,24 @@ function resetState(){
     while(btns.firstChild){
         btns.removeChild(btns.firstChild);
     }
-
+    
 }
+
+function startTime(){
+    let timer = setInterval(function(){
+        countDown--;
+        time.textContent = " " + countDown;
+        if(countDown === 0){
+            clearInterval(timer)
+            resetState()
+            showScore()
+            
+        }
+
+
+    },1000)
+}
+
 
 function selectAnswer(e){
     let selectedBtn = e.target;
@@ -199,10 +199,14 @@ startbtn.addEventListener("click",function(){
 
 function showScore(){
     
-    resetState();
     
+    resetState();
+    playAgin();
     if(score <= 6){
         question.textContent="you scored "+ score + " out of " + myQuestions.length +" play Again for better score!😬";
+    }
+    else if(score === 10){
+        question.textContent = "you scored " + score + " out of " + myQuestions.length + " perfect score🌟✨"
     }
     else if(score>=7){
         question.textContent="you scored " + score +  " out of " + myQuestions.length + " congratulations you did good!🏆"
@@ -210,8 +214,10 @@ function showScore(){
     else{
        return;
     }
-    
-    question.setAttribute("style","font-size:35px;");
+    question.setAttribute("style","font-size:30px; display:flex; justify-content:center; align-items:center;");
+   
+
+   
 
     
 
@@ -224,6 +230,15 @@ function handleNextButton(){
     else{
         showScore()
     }
+}
+
+function playAgin(){
+
+     startQuiz();
+     showQuestions();
+
+    begin.style.display ="inline";
+    begin.textContent ="play again!";
 }
 
 
