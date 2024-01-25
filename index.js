@@ -115,7 +115,7 @@ begin.addEventListener("click",startQuiz)
 
 let currentQuestionIndex = 0;
 let score = 0;
-let countDown = 3;
+let countDown = 75;
 
 function startQuiz(){
     begin.style.display="none"
