@@ -115,7 +115,7 @@ begin.addEventListener("click",startQuiz)
 
 let currentQuestionIndex = 0;
 let score = 0;
-let countDown = 75;
+let countDown = 51;
 
 function startQuiz(){
     begin.style.display="none"
@@ -151,6 +151,7 @@ function resetState(){
         btns.removeChild(btns.firstChild);
     }
     
+    
 }
 
 function startTime(){
@@ -176,8 +177,12 @@ function selectAnswer(e){
         selectedBtn.classList.add("correct")
         score++;
     }
-    else{
+    else if(!isCorrect){
         selectedBtn.classList.add("incorrect")
+        countDown--
+    }
+    else{
+        return;
     }
     Array.from(btns.children).forEach(button =>{
         if(button.dataset.correct ==="true"){
@@ -201,8 +206,10 @@ function showScore(){
     
     
     resetState();
-    playAgin();
-    if(score <= 6){
+
+    
+    
+    if(score === 0 || score <=6){
         question.textContent="you scored "+ score + " out of " + myQuestions.length +" play Again for better score!😬";
     }
     else if(score === 10){
@@ -212,15 +219,11 @@ function showScore(){
         question.textContent="you scored " + score +  " out of " + myQuestions.length + " congratulations you did good!🏆"
     }
     else{
-       return;
+       return score;
     }
     question.setAttribute("style","font-size:30px; display:flex; justify-content:center; align-items:center;");
    
-
    
-
-    
-
 }
 function handleNextButton(){
     currentQuestionIndex++;
@@ -232,14 +235,8 @@ function handleNextButton(){
     }
 }
 
-function playAgin(){
 
-     startQuiz();
-     showQuestions();
 
-    begin.style.display ="inline";
-    begin.textContent ="play again!";
-}
 
 
 

@@ -111,6 +111,13 @@ body{
     color:transparent;
 }
 
+#savescore{
+    display: none;
+}
+.display-show{
+    display:block;
+}
+
 
 
 
